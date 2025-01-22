@@ -11,7 +11,7 @@ namespace Ebac.StateMachine
 
 
         public Dictionary<T, StateBase> dictionaryState;
-        public Player player;
+        
         private StateBase _currentState;
 
         public StateBase CurrentState

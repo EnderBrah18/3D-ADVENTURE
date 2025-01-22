@@ -1,5 +1,6 @@
 using Ebac.StateMachine;
 
+
 public class MoveState : StateBase
 {
     
@@ -13,11 +14,10 @@ public class StateIdle : StateBase
 public class StateWalk : StateBase
 {
     public Player player;
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter()
     {
-        player = (Player)o;
         player.canMove = true;
-        base.OnStateEnter(o);
+        base.OnStateEnter();
 
     }
 
