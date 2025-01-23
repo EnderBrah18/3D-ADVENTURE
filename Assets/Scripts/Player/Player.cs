@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public GameObject projectile;
-    public Transform shootPoint;
     public Rigidbody rb;
 
 
@@ -18,9 +15,10 @@ public class Player : MonoBehaviour
     public bool isGrounded;
     public bool canMove = false;
 
+
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); 
         jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 

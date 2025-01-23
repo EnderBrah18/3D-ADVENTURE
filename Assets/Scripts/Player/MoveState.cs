@@ -16,6 +16,7 @@ public class StateWalk : StateBase
     public Player player;
     public override void OnStateEnter(object o = null)
     {
+        player = (Player)o;
         player.canMove = true;
         base.OnStateEnter();
 
