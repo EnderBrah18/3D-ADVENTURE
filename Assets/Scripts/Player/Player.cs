@@ -4,63 +4,27 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody rb;
+    public float walkSpeed = 5f;
+    private Rigidbody rb;
 
-
-    public Vector3 dir;
-    public Vector3 up;
-    public Vector3 jump;
-
-    public float jumpForce = 2.0f;
-    public bool isGrounded;
-    public bool canMove = false;
-
-
-    private void Start()
+    void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
-        jump = new Vector3(0.0f, 2.0f, 0.0f);
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionStay(Collision collision)
+    public void SetVelocity(Vector3 velocity)
     {
-        isGrounded = true;
-    }
-    
-
-    void OnCollisionExit()
-    {
-        isGrounded = false;
+        if (rb != null)
+        {
+            rb.velocity = velocity;
+        }
     }
 
-
-    
-    void Update()
+    public void Jump()
     {
-        if (!canMove) return;
-
-        if (Input.GetKey(KeyCode.D))
+        if (rb != null)
         {
-            transform.Translate(-dir * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(dir * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(up * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(-up * Time.deltaTime);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            rb.AddForce(Vector3.up * 10f, ForceMode.Impulse);
         }
     }
 }

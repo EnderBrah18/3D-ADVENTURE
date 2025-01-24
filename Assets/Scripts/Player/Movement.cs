@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ebac.Core.Singleton;
 using Ebac.StateMachine;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Movement : Singleton<Movement>
 {
@@ -32,13 +33,23 @@ public class Movement : Singleton<Movement>
 
         stateMachine.SwitchState(MovementStates.IDLE);
 
-        Invoke(nameof(StartGame), timeToWalk);
     }
 
-    private void StartGame()
+    void Update()
     {
-        stateMachine.SwitchState(MovementStates.WALK);
-    }
 
-    
-}
+
+        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.A) || (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.D)))))
+        {
+            stateMachine.SwitchState(MovementStates.WALK);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+
+
+        {
+            stateMachine.SwitchState(MovementStates.JUMP);
+
+        }
+
+    }
+ }
