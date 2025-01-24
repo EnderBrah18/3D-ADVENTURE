@@ -37,7 +37,7 @@ public class Movement : Singleton<Movement>
 
     void Update()
     {
-
+        stateMachine.Update();
 
         if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.A) || (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.D)))))
         {
@@ -50,6 +50,7 @@ public class Movement : Singleton<Movement>
             stateMachine.SwitchState(MovementStates.JUMP);
 
         }
+
 
     }
  }

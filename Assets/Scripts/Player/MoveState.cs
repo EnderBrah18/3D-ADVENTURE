@@ -15,6 +15,7 @@ public class StateIdle : StateBase
 
     public override void OnStateEnter(object o = null)
     {
+        if (!player) player = GameObject.FindAnyObjectByType<Player>();
         player.SetVelocity(Vector3.zero); // Zerar o movimento
         base.OnStateEnter(o);
     }
@@ -38,6 +39,7 @@ public class StateWalk : StateBase
 
     public override void OnStateEnter(object o = null)
     {
+        if (!player) player = GameObject.FindAnyObjectByType<Player>();
         base.OnStateEnter();
     }
 
@@ -45,6 +47,7 @@ public class StateWalk : StateBase
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         player.SetVelocity(direction * player.walkSpeed);
+        
 
         base.OnStateStay();
     }
@@ -52,7 +55,8 @@ public class StateWalk : StateBase
     public override void OnStateExit()
     {
         player.SetVelocity(Vector3.zero); // Zerar ao sair se necessário
-        base.OnStateExit();    
+        base.OnStateExit(); 
+        
     }
 }
 
@@ -62,6 +66,7 @@ public class StateJump : StateBase
 
     public override void OnStateEnter(object o = null)
     {
+        if (!player) player = GameObject.FindAnyObjectByType<Player>();
         player.Jump(); // Aplicar a força de pulo
         base.OnStateEnter(o);
     }
