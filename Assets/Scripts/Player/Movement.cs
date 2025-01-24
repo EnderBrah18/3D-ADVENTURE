@@ -20,7 +20,6 @@ public class Movement : Singleton<Movement>
     private void Start()
     {
         Init();
-
     }
 
     public void Init()

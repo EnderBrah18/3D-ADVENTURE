@@ -38,7 +38,7 @@ namespace Ebac.StateMachine
 
             _currentState = dictionaryState[state];
 
-            _currentState.OnStateEnter();
+            _currentState.OnStateEnter(this);
 
         }
 
