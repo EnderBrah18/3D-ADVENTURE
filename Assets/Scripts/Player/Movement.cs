@@ -39,17 +39,13 @@ public class Movement : Singleton<Movement>
     {
         stateMachine.Update();
 
-        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.A) || (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.D)))))
+        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.A) || (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.D) || (Input.GetKeyDown(KeyCode.Space))))))
         {
             stateMachine.SwitchState(MovementStates.WALK);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        
 
-
-        {
-            stateMachine.SwitchState(MovementStates.JUMP);
-
-        }
 
 
     }

@@ -4,27 +4,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    private Rigidbody rb;
+    public float speed = 1f;
+    public CharacterController characterController;
+    public float gravity = 9.8f;
+    public float turnSpeed = 1f;
+    public float jumpSpeed = 15f;
+    public float jumpHeight = 0.0f;
+    
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
-    public void SetVelocity(Vector3 velocity)
-    {
-        if (rb != null)
-        {
-            rb.velocity = velocity;
-        }
-    }
+    
 
-    public void Jump()
-    {
-        if (rb != null)
-        {
-            rb.AddForce(Vector3.up * 10f, ForceMode.Impulse);
-        }
-    }
+
+
+    public float vSpeed = 0f;
+
+    public Animator animator;
+
+
+
 }
+
+    
+
+
+    
+
+
+
