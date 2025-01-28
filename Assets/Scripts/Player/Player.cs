@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 1f;
     public CharacterController characterController;
+    public Animator animator;
+    private Vector3 velocity;
+    private bool isGrounded;
+
+
+
+    public float speed = 1f;
     public float gravity = 9.8f;
     public float turnSpeed = 1f;
+    [Header("Run Setup")]
+    public KeyCode keyRun = KeyCode.LeftShift;
+    public float speedRun = 1.5f;
+    [Header("Jump Setup")]
     public float jumpSpeed = 15f;
-    public float jumpHeight = 0.0f;
-    
-
-
-    
+    public KeyCode keyJump = KeyCode.Space;
 
 
 
     public float vSpeed = 0f;
 
-    public Animator animator;
 
-
-
+    
 }
+
+    
+
+
 
     
 

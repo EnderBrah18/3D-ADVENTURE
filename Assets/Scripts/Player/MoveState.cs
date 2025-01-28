@@ -67,29 +67,37 @@ public class StateWalk : StateBase
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, player.turnSpeed * Time.deltaTime);
         }
 
-        if (player.characterController.isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                player.vSpeed = player.jumpSpeed;
-            }
-        }
-
-
+        
 
         // Calcula o movimento baseado na direção que o personagem está olhando
         var speedVector = player.transform.forward * inputDirection.magnitude * player.speed;
+
 
 
         // Aplica a gravidade
         player.vSpeed -= player.gravity * Time.deltaTime;
         speedVector.y = player.vSpeed;
 
+        var isWalking = inputAxisVertical != 0 || inputAxisHorizontal != 0;
+        if (isWalking)
+        {
+            if (Input.GetKey(player.keyRun))
+            {
+                speedVector *= player.speedRun;
+                player.animator.speed = player.speedRun;
+            }
+            else
+            {
+                player.animator.speed = 1;
+            }
+        }
+
         // Move o CharacterController
         player.characterController.Move(speedVector * Time.deltaTime);
 
         if (Mathf.Approximately(Input.GetAxis("Horizontal"), 0) &&
-         Mathf.Approximately(Input.GetAxis("Vertical"), 0) )
+         Mathf.Approximately(Input.GetAxis("Vertical"), 0) &&
+         player.characterController.isGrounded)
         {
             movement.stateMachine.SwitchState(Movement.MovementStates.IDLE);
 
@@ -117,16 +125,41 @@ public class StateJump : StateBase
 
     public override void OnStateEnter(object o = null)
     {
-       
-    
+        if (!player) player = GameObject.FindAnyObjectByType<Player>();
+
 
         base.OnStateEnter(o);
     }
 
     public override void OnStateStay()
     {
-        
+        // Obter os valores de entrada
+        float inputAxisHorizontal = Input.GetAxis("Horizontal");
+        float inputAxisVertical = Input.GetAxis("Vertical");
 
+        // Determinar a direção desejada pelo jogador
+        Vector3 inputDirection = new Vector3(inputAxisHorizontal, 0, inputAxisVertical);
+
+        // Calcula o movimento baseado na direção que o personagem está olhando
+        var speedVector = player.transform.forward * inputDirection.magnitude * player.speed;
+
+        if (player.characterController.isGrounded)
+        {
+            player.vSpeed = 0;
+            if (Input.GetKeyDown(player.keyJump))
+            {
+                player.vSpeed = player.jumpSpeed;
+
+            }
+        }
+
+
+        // Aplica a gravidade
+        player.vSpeed -= player.gravity * Time.deltaTime;
+        speedVector.y = player.vSpeed;
+
+        // Move o CharacterController
+        player.characterController.Move(speedVector * Time.deltaTime);
         base.OnStateStay();
     }
 
