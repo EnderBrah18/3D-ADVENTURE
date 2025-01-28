@@ -126,6 +126,7 @@ public class StateJump : StateBase
     public override void OnStateEnter(object o = null)
     {
         if (!player) player = GameObject.FindAnyObjectByType<Player>();
+        OnStateStay();
 
 
         base.OnStateEnter(o);
