@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAbilityShoot : PlayerAbilityBase
 {
+
     public GunBase gunBase;
     public Transform gunPosition;
 
@@ -26,6 +27,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
         _currentGun = Instantiate(gunBase, gunPosition);
 
         _currentGun.transform.localPosition = _currentGun.transform.localEulerAngles = Vector3.zero;
+
     }
 
     private void StartShoot()
