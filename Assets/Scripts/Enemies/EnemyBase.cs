@@ -9,9 +9,10 @@ namespace Enemy
 {
 
 
-   public class EnemyBase : MonoBehaviour
+   public class EnemyBase : MonoBehaviour, IDamageable
    {
 
+        public Collider collider;
         public float startLife = 10f;
 
         [SerializeField] private float _currentLife;
@@ -50,6 +51,7 @@ namespace Enemy
 
         protected virtual void OnKill()
         {
+            if(collider != null) collider.enabled = false;
             Destroy(gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
         }
@@ -88,5 +90,10 @@ namespace Enemy
             }
         }
 
+        public void Damage(float damage)
+        {
+            Debug.Log("Damage");    
+            OnDamage(damage);
+        }
     }
 }
