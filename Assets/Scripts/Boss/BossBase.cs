@@ -21,6 +21,7 @@ namespace Boss
         [Header("Animation")]
         public float startAnimationDuration = .5f;
         public Ease startAnimationEase = Ease.OutBack;
+        
 
         [Header("Attack")]
         public int attackAmount = 5;
@@ -30,6 +31,7 @@ namespace Boss
         public List<Transform> waypoints;
 
         public healthBase healthBase;
+        
 
 
         private StateMachine<BossAction> stateMachine;
@@ -38,6 +40,7 @@ namespace Boss
         {
             init();
             healthBase.OnKill += OnBossKill;
+            
         }
 
         private void init()
@@ -97,13 +100,15 @@ namespace Boss
         #region ANIMATION
         public void StartInitAnimation()
         {
-            transform.DOScale(0, startAnimationDuration).SetEase(startAnimationEase).From();
+            
+            transform.DOScale(1, startAnimationDuration).SetEase(startAnimationEase);
+            SwitchState(BossAction.WALK);
         }
         #endregion
 
         #region DEBUG
         [NaughtyAttributes.Button]
-        private void SwitchInit()
+        public void SwitchInit()
         {
             SwitchState(BossAction.INIT);
         }
@@ -125,6 +130,8 @@ namespace Boss
         {
             stateMachine.SwitchState(state, this);
         }
-#endregion
+        #endregion
+
+        
     }
 }

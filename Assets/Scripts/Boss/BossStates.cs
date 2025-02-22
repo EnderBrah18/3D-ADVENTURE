@@ -24,6 +24,7 @@ namespace Boss
         {
             base.OnStateEnter(objs);
             boss.StartInitAnimation();
+            Debug.Log("Init");
         }
     }
 
