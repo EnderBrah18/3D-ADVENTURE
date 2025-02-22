@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Ebac.StateMachine;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
-using UnityEditorInternal;
+
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -16,12 +16,12 @@ public class StateIdle : StateBase
 {
     private Player player;
 
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
         if (!player) player = GameObject.FindAnyObjectByType<Player>();
         player.animator.SetBool("Run", false);
 
-        base.OnStateEnter(o);
+        base.OnStateEnter(objs);
     }
 
     public override void OnStateStay()
@@ -42,7 +42,7 @@ public class StateWalk : StateBase
     private Player player;
     private Movement movement;
 
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
         if (!player) player = GameObject.FindAnyObjectByType<Player>();
         if (!movement) movement = GameObject.FindAnyObjectByType<Movement>();
@@ -123,13 +123,13 @@ public class StateJump : StateBase
     private Player player;
     private Movement movement;
 
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
         if (!player) player = GameObject.FindAnyObjectByType<Player>();
         OnStateStay();
 
 
-        base.OnStateEnter(o);
+        base.OnStateEnter(objs);
     }
 
     public override void OnStateStay()
