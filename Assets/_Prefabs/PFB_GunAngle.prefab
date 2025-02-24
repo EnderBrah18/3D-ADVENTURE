@@ -154,7 +154,8 @@ MonoBehaviour:
   positionToShoot: {fileID: 3162609576704217603}
   timeBetweenShoot: 0.3
   speed: 50
-  uiGunUpdaters: []
+  uiGunUpdaters:
+  - {fileID: 0}
   maxShoot: 5
   timeToRecharge: 1
   amountPerShoot: 4

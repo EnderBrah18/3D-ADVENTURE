@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour//, IDamageable
 {
+    public List<Collider> colliders;
+
     public CharacterController characterController;
     public Animator animator;
     private Vector3 velocity;
@@ -28,15 +30,45 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Flash")]
     public List<FlashColor> flashColors;
 
+    public healthBase healthBase;
+
+    private bool _alive = true;
+
+    private void OnValidate()
+    {
+        if (healthBase == null) healthBase = GetComponent<healthBase>();
+    }
+
+    private void Awake()
+    {
+        OnValidate();
+
+        healthBase.OnDamage += Damage;
+        healthBase.OnKill += OnKill;
+
+    }
+
     #region LIFE
-    public void Damage(float damage)
+
+    private void OnKill(healthBase h)
+    {
+        if (_alive)
+        {
+            _alive = false;
+            animator.SetTrigger("Death");
+            colliders.ForEach(i => i.enabled = false);
+        }
+    }
+
+    public void Damage(healthBase h)
     {
         flashColors.ForEach(i => i.Flash());
+
     }
 
     public void Damage(float damage, Vector3 dir)
     {
-        Damage(damage);
+        //Damage(damage);
     }
 
     #endregion

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 
-public class UiGunUpdater : MonoBehaviour
+public class UIFillUpdater : MonoBehaviour
 {
     public Image uiImage;
     [Header("Animation")]
