@@ -9,6 +9,7 @@ public class CheckpointManager : Singleton<CheckpointManager>
 
     public List<CheckpointBase> checkpoints;
 
+
     public bool HasCheckpoint()
     {
         return lastCheckPointKey > 0;
