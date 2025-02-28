@@ -53,6 +53,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""24aaaa4c-ff47-4317-a73f-5605f80d3667"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +97,17 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""SwapToGun2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32c6b0f5-f3ae-4aa2-a304-4931f36d4ba8"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +119,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_SwapToGun1 = m_Gameplay.FindAction("SwapToGun1", throwIfNotFound: true);
         m_Gameplay_SwapToGun2 = m_Gameplay.FindAction("SwapToGun2", throwIfNotFound: true);
+        m_Gameplay_Heal = m_Gameplay.FindAction("Heal", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +184,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_SwapToGun1;
     private readonly InputAction m_Gameplay_SwapToGun2;
+    private readonly InputAction m_Gameplay_Heal;
     public struct GameplayActions
     {
         private @Inputs m_Wrapper;
@@ -170,6 +192,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @SwapToGun1 => m_Wrapper.m_Gameplay_SwapToGun1;
         public InputAction @SwapToGun2 => m_Wrapper.m_Gameplay_SwapToGun2;
+        public InputAction @Heal => m_Wrapper.m_Gameplay_Heal;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +211,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @SwapToGun2.started += instance.OnSwapToGun2;
             @SwapToGun2.performed += instance.OnSwapToGun2;
             @SwapToGun2.canceled += instance.OnSwapToGun2;
+            @Heal.started += instance.OnHeal;
+            @Heal.performed += instance.OnHeal;
+            @Heal.canceled += instance.OnHeal;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -201,6 +227,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @SwapToGun2.started -= instance.OnSwapToGun2;
             @SwapToGun2.performed -= instance.OnSwapToGun2;
             @SwapToGun2.canceled -= instance.OnSwapToGun2;
+            @Heal.started -= instance.OnHeal;
+            @Heal.performed -= instance.OnHeal;
+            @Heal.canceled -= instance.OnHeal;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -223,5 +252,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnSwapToGun1(InputAction.CallbackContext context);
         void OnSwapToGun2(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
     }
 }
