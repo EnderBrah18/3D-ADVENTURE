@@ -1339,7 +1339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 213972057}
-  - component: {fileID: 213972056}
+  - component: {fileID: 213972058}
   - component: {fileID: 213972055}
   m_Layer: 0
   m_Name: ItemClothSpeed
@@ -1369,20 +1369,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &213972056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213972054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67b8dd6167533034aa03fcfd2b8ebc4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clothType: 0
-  compareTag: Player
 --- !u!4 &213972057
 Transform:
   m_ObjectHideFlags: 0
@@ -1399,6 +1385,22 @@ Transform:
   - {fileID: 678980135}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &213972058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213972054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db7cd20e419ef940a6a798d538bcf53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothType: 0
+  duration: 2
+  compareTag: Player
+  targetSpeed: 15
 --- !u!1 &217330514
 GameObject:
   m_ObjectHideFlags: 0
@@ -8431,6 +8433,7 @@ MonoBehaviour:
   - {fileID: 1870371982}
   - {fileID: 147014726}
   healthBase: {fileID: 1232944763}
+  _clothChanger: {fileID: 1755247083}
 --- !u!143 &1232944760
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12592,8 +12595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebac719f6f8317244a232902218092d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  texture: {fileID: 0}
+  mesh: {fileID: 1870371983}
+  texture: {fileID: 2800000, guid: 138c009afc5dffa4c9fe3809a87b5ead, type: 3}
   shaderIdName: _EmissionMap
 --- !u!1001 &1765309616
 PrefabInstance:
@@ -14524,7 +14527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clothSetups:
   - clothType: 0
-    text: {fileID: 2800000, guid: 138c009afc5dffa4c9fe3809a87b5ead, type: 3}
+    texture: {fileID: 2800000, guid: 138c009afc5dffa4c9fe3809a87b5ead, type: 3}
 --- !u!4 &1953230159
 Transform:
   m_ObjectHideFlags: 0
