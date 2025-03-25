@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Ebac.StateMachine;
 using JetBrains.Annotations;
+using TMPro.SpriteAssetUtilities;
 using Unity.VisualScripting;
 
 using UnityEngine;
@@ -146,10 +147,23 @@ public class StateJump : StateBase
 
         if (player.characterController.isGrounded)
         {
+            if (player._jumping)
+            {
+                player._jumping = false;
+                player.animator.SetTrigger("Land");
+            }
+
             player.vSpeed = 0;
             if (Input.GetKeyDown(player.keyJump))
             {
                 player.vSpeed = player.jumpSpeed;
+
+                player.animator.SetTrigger("Jump");
+                if (!player._jumping)
+                {
+                    player._jumping = true;
+                    player.animator.SetTrigger("Jump");
+                }
 
             }
         }

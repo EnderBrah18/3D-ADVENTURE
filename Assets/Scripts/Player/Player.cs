@@ -24,6 +24,7 @@ public class Player : Singleton<Player>//, IDamageable
     [Header("Jump Setup")]
     public float jumpSpeed = 15f;
     public KeyCode keyJump = KeyCode.Space;
+    public bool _jumping = false;
 
 
 
