@@ -53,26 +53,31 @@ public class StateWalk : StateBase
 
     public override void OnStateStay()
     {
-        
+
         // Obter os valores de entrada
         float inputAxisHorizontal = Input.GetAxis("Horizontal");
         float inputAxisVertical = Input.GetAxis("Vertical");
+        Vector3 inputDirection = new Vector3(inputAxisHorizontal, 0, inputAxisVertical).normalized;
 
-        // Determinar a direção desejada pelo jogador
-        Vector3 inputDirection = new Vector3(inputAxisHorizontal, 0, inputAxisVertical);
+        // Converte a direção da entrada para a direção baseada na câmera
+        Vector3 cameraForward = player.cameraTransform.forward;
+        Vector3 cameraRight = player.cameraTransform.right;
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        Vector3 moveDirection = (cameraForward * inputAxisVertical + cameraRight * inputAxisHorizontal);
 
         // Se houver alguma entrada, rotaciona o personagem na direção da entrada
         if (inputDirection != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, player.turnSpeed * Time.deltaTime);
         }
 
-        
-
-        // Calcula o movimento baseado na direção que o personagem está olhando
-        var speedVector = player.transform.forward * inputDirection.magnitude * player.speed;
-
+        // Calcula a velocidade final de movimento
+        Vector3 speedVector = moveDirection * player.speed;
 
 
         // Aplica a gravidade

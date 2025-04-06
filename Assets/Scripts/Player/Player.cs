@@ -18,15 +18,17 @@ public class Player : Singleton<Player>//, IDamageable
     public float speed = 1f;
     public float gravity = 9.8f;
     public float turnSpeed = 1f;
+
     [Header("Run Setup")]
     public KeyCode keyRun = KeyCode.LeftShift;
     public float speedRun = 1.5f;
+
     [Header("Jump Setup")]
     public float jumpSpeed = 15f;
     public KeyCode keyJump = KeyCode.Space;
     public bool _jumping = false;
 
-
+    public Transform cameraTransform;
 
     public float vSpeed = 0f;
 
