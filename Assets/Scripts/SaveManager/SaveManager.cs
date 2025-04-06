@@ -24,6 +24,12 @@ public class SaveManager : Singleton<SaveManager>
         SaveFile(setupToJson);
     }
 
+    public void Savename(string text)
+    {
+        _saveSetup.playerName = text;
+        Save();
+    }
+
     public void SaveLastLevel(int level)
     {
         _saveSetup.lastLevel = level;
