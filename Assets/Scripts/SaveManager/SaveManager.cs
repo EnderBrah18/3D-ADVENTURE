@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Ebac.Core.Singleton;
+using Itens;
 
 public class SaveManager : Singleton<SaveManager>
 {
@@ -23,6 +24,12 @@ public class SaveManager : Singleton<SaveManager>
         string setupToJson = JsonUtility.ToJson(_saveSetup, true);
         Debug.Log(setupToJson);
         SaveFile(setupToJson);
+    }
+
+    public void SaveItens()
+    {
+        _saveSetup.coins = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.COIN).soInt.value;
+        _saveSetup.health = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.LIFE_PACK).soInt.value;
     }
 
     public void Savename(string text)
@@ -57,5 +64,10 @@ public class SaveManager : Singleton<SaveManager>
 public class SaveSetup
 {
     public int lastLevel;
+    public float coins;
+    public float health;
+    
     public string playerName;
+
+
 }
