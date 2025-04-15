@@ -30,6 +30,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         _saveSetup.coins = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.COIN).soInt.value;
         _saveSetup.health = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.LIFE_PACK).soInt.value;
+        Save();
     }
 
     public void Savename(string text)
@@ -41,6 +42,7 @@ public class SaveManager : Singleton<SaveManager>
     public void SaveLastLevel(int level)
     {
         _saveSetup.lastLevel = level;
+        SaveItens();
         Save();
     }
     #endregion
