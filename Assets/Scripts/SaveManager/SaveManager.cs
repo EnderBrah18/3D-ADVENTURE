@@ -4,17 +4,38 @@ using System.IO;
 using UnityEngine;
 using Ebac.Core.Singleton;
 using Itens;
+using System;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    private SaveSetup _saveSetup;
+    [SerializeField] private SaveSetup _saveSetup;
+    private string _path = Application.dataPath + "/save.txt";
+
+    public int lastLevel;
+
+    public Action<SaveSetup> FileLoaded;
+
+    public SaveSetup Setup
+    {
+        get {  return _saveSetup; }
+    }
 
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        Invoke(nameof(Load), .1f);
+    }
+
+    private void CreateNewSave()
+    {
+
         _saveSetup = new SaveSetup();
-        _saveSetup.lastLevel = 2;
+        _saveSetup.lastLevel = 0;
         _saveSetup.playerName = "Pandora";
     }
 
@@ -48,12 +69,28 @@ public class SaveManager : Singleton<SaveManager>
     #endregion
     private void SaveFile(string json)
     {
-        string path = Application.dataPath + "save.txt";
-
-        Debug.Log(path);
-        File.WriteAllText(path, json);
+        Debug.Log(_path);
+        File.WriteAllText(_path, json);
     }
 
+    private void Load()
+    {
+        string fileLoaded = "";
+
+        if (File.Exists(_path))
+        {
+          fileLoaded = File.ReadAllText(_path);
+          _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
+          lastLevel = _saveSetup.lastLevel;
+
+        }
+        else
+        {
+            CreateNewSave();
+        }
+
+        FileLoaded.Invoke(_saveSetup);
+    }
 
 
     private void SavelevelOne()

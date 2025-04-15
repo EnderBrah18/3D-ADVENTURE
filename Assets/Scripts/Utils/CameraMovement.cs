@@ -20,10 +20,10 @@ public class CameraMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked; // Trava o cursor no centro da tela
     }
 
-    private void Update()
+   /* private void Update()
     {
         Debug.Log($"Mouse X: {Input.GetAxis("Mouse X")}, Mouse Y: {Input.GetAxis("Mouse Y")}");
-    }
+    }*/
 
     void LateUpdate()
     {
