@@ -12,6 +12,7 @@ namespace Enemy
 
    public class EnemyBase : MonoBehaviour, IDamageable
    {
+        public SFXType sfxType;
 
         public Collider collider;
         public FlashColor flashColor;
@@ -60,6 +61,11 @@ namespace Enemy
             BornAnimation();
         }
 
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
         protected virtual void Kill()
         {
             OnKill();
@@ -76,6 +82,7 @@ namespace Enemy
 
         public void OnDamage(float f)
         {
+            PlaySFX();
             if (flashColor != null) flashColor.Flash();
             if (particleSystem != null) particleSystem.Emit(15);
 
