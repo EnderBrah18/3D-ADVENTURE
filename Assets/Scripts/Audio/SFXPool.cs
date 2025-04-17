@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ebac.Core.Singleton;
 
-public class SFXPool : MonoBehaviour
+public class SFXPool : Singleton<SFXPool>
 {
     private List<AudioSource> _audioSourceList;
 
@@ -10,7 +11,7 @@ public class SFXPool : MonoBehaviour
 
     private int _index = 0;
 
-    private void Awake()
+    private void Start()
     {
         CreatePool();
     }
@@ -34,6 +35,7 @@ public class SFXPool : MonoBehaviour
 
     public void Play(SFXType sfxType)
     {
+        if (sfxType == SFXType.NONE) return;
         var sfx = SoundManager.Instance.GetSFXByType(sfxType);
 
         _audioSourceList[_index].clip = sfx.audioClip;
