@@ -12,21 +12,31 @@ public class CameraMovement : MonoBehaviour
     public float height = 3f;           // Altura da câmera
     public float smoothSpeed = 10f;     // Suavidade na rotação
 
+
+    private bool cursorLocked = true;
+
     float yaw; // Rotação horizontal
     float pitch; // Rotação vertical
 
-    void Start()
+    private void OnEnable()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Trava o cursor no centro da tela
+        PauseManager.OnCursorToggle += HandleCursorToggle;
     }
 
-   /* private void Update()
+    private void OnDisable()
     {
-        Debug.Log($"Mouse X: {Input.GetAxis("Mouse X")}, Mouse Y: {Input.GetAxis("Mouse Y")}");
-    }*/
+        PauseManager.OnCursorToggle -= HandleCursorToggle;
+    }
+
+    private void HandleCursorToggle(bool locked)
+    {
+        cursorLocked = locked;
+    }
 
     void LateUpdate()
     {
+        if (!cursorLocked) return;
+
         yaw += Input.GetAxis("Mouse X") * sensitivity;
         pitch += Input.GetAxis("Mouse Y") * sensitivity;
         pitch = Mathf.Clamp(pitch, -30f, 60f); // Limita o ângulo vertical

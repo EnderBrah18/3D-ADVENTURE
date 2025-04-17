@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunBase : MonoBehaviour
 {
+
     public ProjectileBase prefabProjectile;
 
     public Transform positionToShoot;

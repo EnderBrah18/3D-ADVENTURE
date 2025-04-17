@@ -12,4 +12,14 @@ public class AudioChangeVolume : MonoBehaviour
     {
         group.SetFloat(floatParam, f);
     }
+
+    public void MuteVolume()
+    {
+        group.SetFloat(floatParam, -80f);
+    }
+
+    public void UnMuteVolume()
+    {
+        group.SetFloat(floatParam, 0f);
+    }
 }

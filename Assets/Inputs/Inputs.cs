@@ -62,6 +62,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbeb96e9-96d3-400e-a704-da83ffbef687"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -108,6 +117,17 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd1f41dd-c616-4fa2-935d-b56c738aefc1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +140,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Gameplay_SwapToGun1 = m_Gameplay.FindAction("SwapToGun1", throwIfNotFound: true);
         m_Gameplay_SwapToGun2 = m_Gameplay.FindAction("SwapToGun2", throwIfNotFound: true);
         m_Gameplay_Heal = m_Gameplay.FindAction("Heal", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,6 +206,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SwapToGun1;
     private readonly InputAction m_Gameplay_SwapToGun2;
     private readonly InputAction m_Gameplay_Heal;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @Inputs m_Wrapper;
@@ -193,6 +215,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @SwapToGun1 => m_Wrapper.m_Gameplay_SwapToGun1;
         public InputAction @SwapToGun2 => m_Wrapper.m_Gameplay_SwapToGun2;
         public InputAction @Heal => m_Wrapper.m_Gameplay_Heal;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +237,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Heal.started += instance.OnHeal;
             @Heal.performed += instance.OnHeal;
             @Heal.canceled += instance.OnHeal;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -230,6 +256,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Heal.started -= instance.OnHeal;
             @Heal.performed -= instance.OnHeal;
             @Heal.canceled -= instance.OnHeal;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -253,5 +282,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnSwapToGun1(InputAction.CallbackContext context);
         void OnSwapToGun2(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

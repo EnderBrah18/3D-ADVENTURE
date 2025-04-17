@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class CheckpointBase : MonoBehaviour
 {
+    public SFXType sfxType;
+
     public MeshRenderer meshRenderer;
     public int key = 01;
 
@@ -22,11 +24,17 @@ public class CheckpointBase : MonoBehaviour
     private bool checkpointActivated = false;
     private string checkpointKey = "CheckpointKey";
 
+    private void PlaySFX()
+    {
+        SFXPool.Instance.Play(sfxType);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (!checkpointActivated && other.transform.tag == "Player")
         {
-
+            PlaySFX();
             CheckCheckpoint();
             StartCoroutine(DisplayText());
 
